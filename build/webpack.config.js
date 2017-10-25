@@ -46,44 +46,46 @@ const config = {
 
 // JavaScript
 // ------------------------------------
-config.module.rules.push({
-  test: /\.(js|jsx)$/,
-  exclude: /node_modules/,
-  use: [{
-    loader: 'babel-loader',
-    query: {
-      cacheDirectory: true,
-      plugins: [
-        'babel-plugin-transform-class-properties',
-        'babel-plugin-syntax-dynamic-import',
-        [
-          'babel-plugin-transform-runtime',
-          {
-            helpers: true,
-            polyfill: false,
-            regenerator: true
-          }
+config.module.rules.push(
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    use: [{
+      loader: 'babel-loader',
+      query: {
+        cacheDirectory: true,
+        plugins: [
+          'babel-plugin-transform-class-properties',
+          'babel-plugin-syntax-dynamic-import',
+          [
+            'babel-plugin-transform-runtime',
+            {
+              helpers: true,
+              polyfill: false,
+              regenerator: true
+            }
+          ],
+          [
+            'babel-plugin-transform-object-rest-spread',
+            {
+              useBuiltIns: true
+            }
+          ]
         ],
-        [
-          'babel-plugin-transform-object-rest-spread',
-          {
-            useBuiltIns: true
-          }
+        presets: [
+          'babel-preset-react',
+          ['babel-preset-env', {
+            modules: false,
+            targets: {
+              ie9: true
+            },
+            uglify: true
+          }]
         ]
-      ],
-      presets: [
-        'babel-preset-react',
-        ['babel-preset-env', {
-          modules: false,
-          targets: {
-            ie9: true
-          },
-          uglify: true
-        }]
-      ]
-    }
-  }]
-});
+      }
+    }]
+  }
+);
 
 // Styles
 // ------------------------------------
